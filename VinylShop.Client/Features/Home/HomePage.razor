@@ -1,0 +1,51 @@
+﻿@page "/"
+@inject HttpClient Http
+
+<PageTitle>Album Store</PageTitle>
+
+@if (_albums == null)
+{
+    <p>Loading albums...</p>
+} 
+else
+{
+    <div class="grid">
+        @foreach (var album in _albums)
+        {
+            <div class="card shadow" style="width: 18rem;">
+                <img src="@album.Image" class="card-img-top" alt="@album.Name" />
+            <div class="card-body">
+                <h5 class="card-title">@album.Name</h5>
+                <h6 class="card-subtitle mb-3 text-muted">
+                    <span class="oi oi-map-marker"></span>
+                </h6>
+                <div class="d-flex justify-content-between">
+                    <span>
+                        <span class="oi oi-clock mr-2"></span>
+                        @album.TimeFormatted
+                    </span>
+                    <span class="oi oi-infinity mr-2">
+                        @album.Rating / 5 stars
+                    </span>
+                </div>
+            </div>
+        </div>
+        }
+    </div>   
+}
+
+@code {
+    private IEnumerable<Album>? _albums;
+
+    protected override async void OnInitialized()
+    {
+        try
+        {
+            _albums = await Http.GetFromJsonAsync<IEnumerable<Album>>("albums/album-data.json");
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine($"There was a problem loading album data: {ex.Message}");
+        }
+    }
+}

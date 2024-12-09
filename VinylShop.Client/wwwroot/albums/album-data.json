@@ -1,0 +1,48 @@
+[
+  {
+    "id": 1,
+    "name": "Counrty",
+    "description": "Test",
+    "image": "albums/1.jpg",
+    "authorName": "Albert",
+    "timeInMinutes": 195,
+    "rating": 5,
+    "songs": [
+      {
+        "name": "test1",
+        "text": "Text1"
+      },
+      {
+        "name": "test2",
+        "text": "Text2"
+      },
+      {
+        "name": "test3",
+        "text": "Text4"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Counrty",
+    "description": "Test2",
+    "image": "albums/2.jpg",
+    "authorName": "Roberto",
+    "timeInMinutes": 2506,
+    "rating": 4,
+    "songs": [
+      {
+        "name": "test1",
+        "text": "Text1"
+      },
+      {
+        "name": "test2",
+        "text": "Text2"
+      },
+      {
+        "name": "test3",
+        "text": "Text4"
+      }
+    ]
+  }
+]
