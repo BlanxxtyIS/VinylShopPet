@@ -9,16 +9,18 @@
 } 
 else
 {
+    <AlbumDetails Album="_selectedAlbum" OnTestTapped="TestAlbumString" />
     <div class="grid">
         @foreach (var album in _albums)
         {
-            <AlbumCard Album="album" />
+            <AlbumCard Album="album" OnSelected="HandleAlbumSelected" />
         }
     </div>   
 }
 
 @code {
     private IEnumerable<Album>? _albums;
+    private Album? _selectedAlbum;
 
     protected override async Task OnInitializedAsync()
     {
@@ -31,4 +33,6 @@ else
             Console.WriteLine($"There was a problem loading album data: {ex.Message}");
         }
     }
+
+    private void HandleAlbumSelected(Album album) => _selectedAlbum = album;
 }
