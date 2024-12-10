@@ -28,7 +28,168 @@
     "description": "Test2",
     "image": "albums/2.jpg",
     "authorName": "Roberto",
-    "timeInMinutes": 2506,
+    "timeInMinutes": 256,
+    "rating": 4,
+    "songs": [
+      {
+        "name": "test1",
+        "text": "Text1"
+      },
+      {
+        "name": "test2",
+        "text": "Text2"
+      },
+      {
+        "name": "test3",
+        "text": "Text4"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Counrty",
+    "description": "Test2",
+    "image": "albums/3.jpg",
+    "authorName": "Roberto",
+    "timeInMinutes": 256,
+    "rating": 4,
+    "songs": [
+      {
+        "name": "test1",
+        "text": "Text1"
+      },
+      {
+        "name": "test2",
+        "text": "Text2"
+      },
+      {
+        "name": "test3",
+        "text": "Text4"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Counrty",
+    "description": "Test2",
+    "image": "albums/4.jpg",
+    "authorName": "Roberto",
+    "timeInMinutes": 256,
+    "rating": 4,
+    "songs": [
+      {
+        "name": "test1",
+        "text": "Text1"
+      },
+      {
+        "name": "test2",
+        "text": "Text2"
+      },
+      {
+        "name": "test3",
+        "text": "Text4"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Counrty",
+    "description": "Test2",
+    "image": "albums/5.jpg",
+    "authorName": "Roberto",
+    "timeInMinutes": 256,
+    "rating": 4,
+    "songs": [
+      {
+        "name": "test1",
+        "text": "Text1"
+      },
+      {
+        "name": "test2",
+        "text": "Text2"
+      },
+      {
+        "name": "test3",
+        "text": "Text4"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Counrty",
+    "description": "Test2",
+    "image": "albums/6.jpg",
+    "authorName": "Roberto",
+    "timeInMinutes": 256,
+    "rating": 4,
+    "songs": [
+      {
+        "name": "test1",
+        "text": "Text1"
+      },
+      {
+        "name": "test2",
+        "text": "Text2"
+      },
+      {
+        "name": "test3",
+        "text": "Text4"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Counrty",
+    "description": "Test2",
+    "image": "albums/7.jpg",
+    "authorName": "Roberto",
+    "timeInMinutes": 256,
+    "rating": 4,
+    "songs": [
+      {
+        "name": "test1",
+        "text": "Text1"
+      },
+      {
+        "name": "test2",
+        "text": "Text2"
+      },
+      {
+        "name": "test3",
+        "text": "Text4"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Counrty",
+    "description": "Test2",
+    "image": "albums/8.jpg",
+    "authorName": "Roberto",
+    "timeInMinutes": 256,
+    "rating": 4,
+    "songs": [
+      {
+        "name": "test1",
+        "text": "Text1"
+      },
+      {
+        "name": "test2",
+        "text": "Text2"
+      },
+      {
+        "name": "test3",
+        "text": "Text4"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Counrty",
+    "description": "Test2",
+    "image": "albums/9.jpg",
+    "authorName": "Roberto",
+    "timeInMinutes": 256,
     "rating": 4,
     "songs": [
       {
