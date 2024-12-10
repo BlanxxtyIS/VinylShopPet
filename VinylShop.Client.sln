@@ -5,6 +5,10 @@ VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VinylShop.Client", "VinylShop.Client\VinylShop.Client.csproj", "{296D069A-A1D4-4C53-A2A6-5B2EB19AAF7E}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VinylShop.Api", "VinylShop.Api\VinylShop.Api.csproj", "{7C5FEBFA-5BCC-41E5-AF30-97AE6E9A287A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VinylShop.Shared", "VinylShop.Shared\VinylShop.Shared.csproj", "{825E3642-E4C4-495A-B6EC-57EDA0605F9D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{296D069A-A1D4-4C53-A2A6-5B2EB19AAF7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{296D069A-A1D4-4C53-A2A6-5B2EB19AAF7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{296D069A-A1D4-4C53-A2A6-5B2EB19AAF7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C5FEBFA-5BCC-41E5-AF30-97AE6E9A287A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C5FEBFA-5BCC-41E5-AF30-97AE6E9A287A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C5FEBFA-5BCC-41E5-AF30-97AE6E9A287A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C5FEBFA-5BCC-41E5-AF30-97AE6E9A287A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{825E3642-E4C4-495A-B6EC-57EDA0605F9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{825E3642-E4C4-495A-B6EC-57EDA0605F9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{825E3642-E4C4-495A-B6EC-57EDA0605F9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{825E3642-E4C4-495A-B6EC-57EDA0605F9D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
