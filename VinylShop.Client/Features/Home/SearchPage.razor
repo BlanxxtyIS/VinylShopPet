@@ -1,0 +1,70 @@
+﻿@page "/search/{SearchAlbum}"
+@page "/search/{SearchAlbum}/maxrating/{MaxRating:int}"
+@inject HttpClient Http
+@inject NavigationManager NavManager
+
+<nav aria-label="breadcrimb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="/">Home</a>
+        </li>
+    </ol>
+</nav>
+
+<h3 class="mt-5 mb-4">Search results for @SearchAlbum</h3>
+<SearchFilter SearchAlbum="@SearchAlbum" />
+
+@if (_searchResults == null)
+{
+    <p>Loading search results...</p>
+} 
+else
+{
+    <AlbumDetails Album="_selectedAlbum" />
+    <div class="grid">
+        @foreach (var album in _searchResults)
+        {
+            <AlbumCard Album="album" OnSelected="HandleAlbumSelected"/>
+        }
+    </div>
+}
+
+
+@code {
+    private IEnumerable<Album> _cachedSearchResults = Array.Empty<Album>();
+    private IEnumerable<Album>? _searchResults;
+    private Album? _selectedAlbum;
+
+    [Parameter]
+    public string SearchAlbum { get; set; } = default!;
+    [Parameter]
+    public int? MaxRating { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var allAlbums = await Http.GetFromJsonAsync<IEnumerable<Album>>("albums/album-data.json");
+            _searchResults = allAlbums!.Where(x => x.Name.Contains(SearchAlbum, StringComparison.CurrentCultureIgnoreCase)
+                || x.AuthorName.Contains(SearchAlbum, StringComparison.CurrentCultureIgnoreCase));
+            _cachedSearchResults = _searchResults;
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine($"There was a problem loading album data: {ex.Message}");
+        }
+    }
+
+    protected override void OnParametersSet()
+    {
+        if (_cachedSearchResults.Any() && MaxRating.HasValue)
+        {
+            _searchResults = _cachedSearchResults.Where(x => x.Rating <= MaxRating.Value);
+        }
+        else if (_cachedSearchResults.Any() && MaxRating is null)
+        {
+            _searchResults = _cachedSearchResults;
+        }
+    }
+    private void HandleAlbumSelected(Album album) => _selectedAlbum = album;
+}

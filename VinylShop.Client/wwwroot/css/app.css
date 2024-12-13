@@ -12,16 +12,14 @@ a {
     text-decoration: underline;
 }
 
-a:after hover {
-    color: var(--brand-hover);
-    text-decoration: none;
-}
+    a:after hover {
+        color: var(--brand-hover);
+        text-decoration: none;
+    }
 
 .navbar {
     border-bottom: 2px solid var(--brand);
-    background: linear-gradient(90deg, rgba(255,255,255,1) 5%,
-        rgba(255,255,255,0) 100%), url("../images/navbar-bg.jpg") no-repeat
-        center;
+    background: linear-gradient(90deg, rgba(255,255,255,1) 5%, rgba(255,255,255,0) 100%), url("../images/navbar-bg.jpg") no-repeat center;
     background-size: cover;
 }
 
@@ -30,10 +28,10 @@ a:after hover {
     border-color: var(--brand);
 }
 
-.btn-primary:hover {
-    background-color: var(--brand-hover);
-    border-color: var(--brand-hover);
-}
+    .btn-primary:hover {
+        background-color: var(--brand-hover);
+        border-color: var(--brand-hover);
+    }
 
 .btn-outline-primary {
     background-color: var(--brand-hover);
@@ -45,10 +43,10 @@ a:after hover {
     color: var(--brand);
 }
 
-.btn-outline-primary:hover {
-    background-color: var(--brand);
-    border-color: var(--brand);
-}
+    .btn-outline-primary:hover {
+        background-color: var(--brand);
+        border-color: var(--brand);
+    }
 
 .grid {
     display: grid;
@@ -131,3 +129,36 @@ a:after hover {
     padding: 20px;
     background-color: #ffffff;
 }
+
+/* Album Search */
+.jumbotron {
+    background: none;
+}
+
+input {
+    border: 2px solid var(--brand);
+}
+
+/* Search Filter */
+.filters {
+    display: flex;
+    margin-bottom: 20px;
+    align-items: baseline;
+    justify-content: flex-end;
+}
+
+label {
+    text-transform: uppercase;
+    margin-right: 10px;
+}
+
+input {
+    margin-right: 20px;
+    width: 100px;
+}
+
+button:first-of-type {
+    margin-right: 10px;
+}
+
+

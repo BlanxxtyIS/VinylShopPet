@@ -1,0 +1,24 @@
+﻿@inject NavigationManager NavManager 
+
+<div class="jumbotron">
+    <h1 class="display-4 text-center">Welcome to Vinyl Shop</h1>
+    <p class="lead text-center">Find the most beautiful hiking albums using our blazing fast search!</p>
+    <p class="mt-4">
+        <input @onkeydown="SearchForAlbum"
+            @bind="_searchAlbum"
+            @bind:event="oninput"
+            type="text"
+            placeholder="Search for a album..."
+            class="form-control form-control-lg" />
+    </p>
+</div>
+
+@code {
+    private string _searchAlbum = "";
+
+    private void SearchForAlbum(KeyboardEventArgs args)
+    {
+        if (args.Key != "Enter") return;
+        NavManager.NavigateTo($"/search/{_searchAlbum}");
+    }
+}

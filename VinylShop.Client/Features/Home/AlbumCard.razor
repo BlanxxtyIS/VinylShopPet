@@ -14,7 +14,8 @@
                 @Album.Rating / 5 stars
             </span>
         </div>
-        <button class="btn btn-primary" title="View" @onclick="@(() => OnSelected.InvokeAsync(Album))">
+        <button class="btn btn-primary" title="View" 
+            @onclick="@(() => OnSelected.InvokeAsync(Album))">
             <i class="bi bi-binoculars"></i>
         </button>
     </div>

@@ -1,0 +1,25 @@
+﻿@inject NavigationManager NavManager
+
+<dev class="filters">
+    <label for="maxRating">Max Rating</label>
+    <input id="maxRating"
+        type="number"
+        class="form-control"
+        @bind="_maxRating" />
+</dev>
+
+@code {
+    private int _maxRating;
+
+    [Parameter, EditorRequired]
+    public string SearchAlbum { get; set; } = default!;
+
+    private void FilterSearchResults() => NavManager.NavigateTo(
+        $"/search/{SearchAlbum}/maxrating/{_maxRating}");
+
+    private void ClearSearchFilter()
+    {
+        _maxRating = 0;
+        NavManager.NavigateTo($"/searchAlbum/{SearchAlbum}");
+    }
+}

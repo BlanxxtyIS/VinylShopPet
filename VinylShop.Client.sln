@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VinylShop.Client", "VinylSh
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VinylShop.Api", "VinylShop.Api\VinylShop.Api.csproj", "{7C5FEBFA-5BCC-41E5-AF30-97AE6E9A287A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VinylShop.Shared", "VinylShop.Shared\VinylShop.Shared.csproj", "{825E3642-E4C4-495A-B6EC-57EDA0605F9D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VinylShop.Shared", "VinylShop.Shared\VinylShop.Shared.csproj", "{825E3642-E4C4-495A-B6EC-57EDA0605F9D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

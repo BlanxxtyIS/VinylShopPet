@@ -9,7 +9,10 @@
 } 
 else
 {
-    <AlbumDetails Album="_selectedAlbum" OnTestTapped="TestAlbumString" />
+    <AlbumDetails Album="_selectedAlbum"/>
+
+    <AlbumSearch />
+
     <div class="grid">
         @foreach (var album in _albums)
         {
