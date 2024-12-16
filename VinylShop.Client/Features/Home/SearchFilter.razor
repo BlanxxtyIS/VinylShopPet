@@ -6,20 +6,49 @@
         type="number"
         class="form-control"
         @bind="_maxRating" />
+
+    <label for="maxTime">Max Time (hours)</label>
+    <input id="maxTime"
+        type="number"
+        class="form-control"
+        @bind="_maxTime" />
+
+    <button class="btn btn-outline-primary" @onclick="FilterSearchResults">Filter</button>
+    <button class="btn btn-outline-secondary" @onclick="ClearSearchFilter">Clear</button>
 </dev>
 
 @code {
-    private int _maxRating;
-
     [Parameter, EditorRequired]
     public string SearchAlbum { get; set; } = default!;
 
-    private void FilterSearchResults() => NavManager.NavigateTo(
-        $"/search/{SearchAlbum}/maxrating/{_maxRating}");
+    [Parameter]
+    public int? MaxRating { get; set; }
+    [Parameter]
+    public int? MaxTime { get; set; }
+
+    private int _maxRating;
+    private int _maxTime;
+
+    protected override void OnInitialized()
+    {
+        _maxRating = MaxRating ?? 0;
+        _maxTime = MaxTime ?? 0;
+    }
+
+    private void FilterSearchResults()
+    {
+        var uriWithQuerystring = NavManager.GetUriWithQueryParameters(new Dictionary<string, object?>()
+            {
+                [nameof(SearchPage.MaxRating)] = _maxRating == 0 ? null : _maxRating,
+                [nameof(SearchPage.MaxTime)] = _maxTime == 0 ? null : _maxTime
+            });
+        NavManager.NavigateTo(uriWithQuerystring);
+    }
 
     private void ClearSearchFilter()
     {
+        _maxTime = 0;
         _maxRating = 0;
-        NavManager.NavigateTo($"/searchAlbum/{SearchAlbum}");
+        NavManager.NavigateTo($"/searchAlbum");
     }
 }

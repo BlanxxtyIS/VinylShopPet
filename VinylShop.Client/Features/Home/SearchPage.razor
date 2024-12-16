@@ -12,7 +12,7 @@
 </nav>
 
 <h3 class="mt-5 mb-4">Search results for @SearchAlbum</h3>
-<SearchFilter SearchAlbum="@SearchAlbum" />
+<SearchFilter SearchAlbum="@SearchAlbum" MaxRating="MaxRating" MaxTime="MaxTime"/>
 
 @if (_searchResults == null)
 {
@@ -37,8 +37,10 @@ else
 
     [Parameter]
     public string SearchAlbum { get; set; } = default!;
-    [Parameter]
+    [Parameter, SupplyParameterFromQuery]
     public int? MaxRating { get; set; }
+    [Parameter, SupplyParameterFromQuery]
+    public int? MaxTime { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -55,16 +57,31 @@ else
         }
     }
 
-    protected override void OnParametersSet()
+    protected override void OnParametersSet() => UpdateFilters();
+
+    private void UpdateFilters()
     {
-        if (_cachedSearchResults.Any() && MaxRating.HasValue)
+        var filters = new List<Func<Album, bool>>();
+
+        if (MaxRating is not null && MaxRating > 0)
         {
-            _searchResults = _cachedSearchResults.Where(x => x.Rating <= MaxRating.Value);
+            filters.Add(x => x.Rating <= MaxRating);
         }
-        else if (_cachedSearchResults.Any() && MaxRating is null)
+
+        if (MaxTime is not null && MaxTime > 0)
+        {
+            filters.Add(x => x.TimeInMinutes <= MaxTime * 60); 
+        }
+
+        if (filters.Any())
+        {
+            _searchResults = _cachedSearchResults.Where(album => filters.All(filter => filter(album)));
+        } 
+        else
         {
             _searchResults = _cachedSearchResults;
         }
     }
+
     private void HandleAlbumSelected(Album album) => _selectedAlbum = album;
 }
