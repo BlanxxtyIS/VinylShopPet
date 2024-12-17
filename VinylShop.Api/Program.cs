@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using VinylShop.Api.Persistence;
+using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

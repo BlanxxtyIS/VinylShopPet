@@ -5,36 +5,35 @@
 @using System.Text.RegularExpressions
 @using System.ComponentModel.DataAnnotations
 
+<p>@testText</p>
+
 <MudGrid>
     <MudItem xs="12" sm="7">
         <MudPaper Class="pa-4">
-            <MudForm @ref="form" @bind-IsValid="@success" @bind-Errors="@errors">
-                <MudTextField T="string" Label="Username" Required="true" RequiredError="User name is required!" />
-                <MudTextField T="string" Label="Email" Required="true" RequiredError="Email is required!"
-                              Validation="@(new EmailAddressAttribute() {ErrorMessage = "The email address is invalid"})" />
-                <MudTextField T="string" Label="Password" HelperText="Choose a strong password" @ref="pwField1"
-                              InputType="InputType.Password"
-                              Validation="@(new Func<string, IEnumerable<string>>(PasswordStrength))" Required="true"
-                              RequiredError="Password is required!" />
-                <MudTextField T="string"
-                              Label="Password" HelperText="Repeat the password" InputType="InputType.Password"
-                              Validation="@(new Func<string, string>(PasswordMatch))" />
-                <div class="d-flex">
-                    <MudRadioGroup T="string" Required="true" RequiredError="Account type is required!">
-                        <MudRadio Value="@("Personal")">Personal</MudRadio>
-                        <MudRadio Value="@("Professional")">Professional</MudRadio>
-                    </MudRadioGroup>
-                </div>
-                <div class="d-flex align-center justify-space-between">
-                    <MudCheckBox T="bool" Required="true" RequiredError="You must agree" Label="I agree!" />
-                    <MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="@(!success)" Class="ml-auto">Register</MudButton>
-                </div>
+            <MudForm @bind-IsValid="@success" @bind-Errors="@errors" Model="_album">
+                <MudTextField @bind-Value="_album.Name"
+                    T="string" Label="Title" Required="true" 
+                    RequiredError="Title name is required!"
+                    Validation="_album.Name"/>
+                <MudTextField @bind-Value="_album.Description"
+                    T="string" Label="Description" 
+                    Required="true" 
+                    RequiredError="Description name is required!" /> 
+                <MudTextField @bind-Value="_album.Image"
+                    T="string" Label="Image" 
+                    Required="true" 
+                    RequiredError="Image name is required!" />
+                <MudTextField @bind-Value="_album.AuthorName"
+                    T="string" Label="Author Name" 
+                    Required="true" 
+                    RequiredError="Author name name is required!" />
+                <MudTextField T="int" Label="Time In Minutes" Required="true" RequiredError="Time in minutes is required!" />
+                <MudTextField T="int" Label="Rating" Required="true" RequiredError="Rating is required!" />
+                <MudTextField T="string" Label="Songs" Required="true" RequiredError="Songs is required!" />
             </MudForm>
         </MudPaper>
         <MudPaper Class="pa-4 mt-4">
-            <MudButton Variant="Variant.Filled" Color="Color.Primary" DropShadow="false" OnClick="@(()=>form.Validate())">Validate</MudButton>
-            <MudButton Variant="Variant.Filled" Color="Color.Secondary" DropShadow="false" OnClick="@(()=>form.ResetAsync())" Class="mx-2">Reset</MudButton>
-            <MudButton Variant="Variant.Filled" DropShadow="false" OnClick="@(()=>form.ResetValidation())">Reset Validation</MudButton>
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="@(!success)" Class="ml-auto" OnClick="RegisterUser">Register</MudButton>
         </MudPaper>
     </MudItem>
     <MudItem xs="12" sm="5">
@@ -50,10 +49,16 @@
 
 
 @code {
+    private string testText = "";
     bool success;
     string[] errors = { };
-    MudTextField<string> pwField1;
-    MudForm form;
+    private AlbumDTO _album = new AlbumDTO();
+
+    private void RegisterUser()
+    {
+        testText = _album.AuthorName;
+        //TODO: - оправить в API
+    }
 
     private IEnumerable<string> PasswordStrength(string pw)
     {
@@ -71,12 +76,4 @@
         if (!Regex.IsMatch(pw, @"[0-9]"))
             yield return "Password must contain at least one digit";
     }
-
-    private string PasswordMatch(string arg)
-    {
-        if (pwField1.Value != arg)
-            return "Passwords don't match";
-        return null;
-    }
-
 }

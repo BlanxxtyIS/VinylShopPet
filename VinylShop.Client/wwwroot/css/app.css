@@ -161,4 +161,7 @@ button:first-of-type {
     margin-right: 10px;
 }
 
-
+/* FormSection */
+.card-brand {
+    border-top: 4px solid var(--brand);
+}
