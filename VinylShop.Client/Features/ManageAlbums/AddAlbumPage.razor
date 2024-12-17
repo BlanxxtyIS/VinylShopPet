@@ -1,39 +1,55 @@
 ﻿@page "/add-album"
+@inject HttpClient Http
 
 <PageTitle>Add Album - Vinyl Shop</PageTitle>
 
 @using System.Text.RegularExpressions
 @using System.ComponentModel.DataAnnotations
 
-<p>@testText</p>
-
 <MudGrid>
     <MudItem xs="12" sm="7">
         <MudPaper Class="pa-4">
             <MudForm @bind-IsValid="@success" @bind-Errors="@errors" Model="_album">
                 <MudTextField @bind-Value="_album.Name"
-                    T="string" Label="Title" Required="true" 
+                    T="string" 
+                    Label="Title" Required="true" 
                     RequiredError="Title name is required!"
                     Validation="_album.Name"/>
                 <MudTextField @bind-Value="_album.Description"
-                    T="string" Label="Description" 
+                    T="string" 
+                    Label="Description" 
                     Required="true" 
                     RequiredError="Description name is required!" /> 
                 <MudTextField @bind-Value="_album.Image"
-                    T="string" Label="Image" 
+                    T="string" 
+                    Label="Image" 
                     Required="true" 
                     RequiredError="Image name is required!" />
                 <MudTextField @bind-Value="_album.AuthorName"
-                    T="string" Label="Author Name" 
+                    T="string" 
+                    Label="Author Name" 
                     Required="true" 
                     RequiredError="Author name name is required!" />
-                <MudTextField T="int" Label="Time In Minutes" Required="true" RequiredError="Time in minutes is required!" />
-                <MudTextField T="int" Label="Rating" Required="true" RequiredError="Rating is required!" />
-                <MudTextField T="string" Label="Songs" Required="true" RequiredError="Songs is required!" />
+                <MudTextField @bind-Value="_album.TimeInMinutes"
+                    T="int"
+                    Label="Time In Minutes" 
+                    Required="true" 
+                    RequiredError="Time in minutes is required!" />
+                <MudTextField @bind-Value="_album.Rating"
+                    T="int" 
+                    Label="Rating" 
+                    Required="true" 
+                    RequiredError="Rating is required!" />
+                <MudTextField 
+                    T="string" 
+                    Label="Songs" 
+                    Required="true" 
+                    RequiredError="Songs is required!" />
             </MudForm>
         </MudPaper>
         <MudPaper Class="pa-4 mt-4">
             <MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="@(!success)" Class="ml-auto" OnClick="RegisterUser">Register</MudButton>
+            <p>@requestText</p>
         </MudPaper>
     </MudItem>
     <MudItem xs="12" sm="5">
@@ -49,15 +65,26 @@
 
 
 @code {
-    private string testText = "";
+    private string requestText = "";
     bool success;
     string[] errors = { };
     private AlbumDTO _album = new AlbumDTO();
 
-    private void RegisterUser()
+    private async void RegisterUser()
     {
-        testText = _album.AuthorName;
-        //TODO: - оправить в API
+        var response = await Http.PostAsJsonAsync("api/Album", _album);
+
+        if (response.IsSuccessStatusCode)
+        {
+            var createdAlbum = await response.Content.ReadFromJsonAsync<AlbumDTO>();
+            requestText = createdAlbum.Id.ToString();
+            success = (!success);
+            _album = new AlbumDTO();
+        }
+        else
+        {
+            requestText = "Error creating album";
+        }
     }
 
     private IEnumerable<string> PasswordStrength(string pw)
