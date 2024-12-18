@@ -16,7 +16,7 @@ namespace VinylShop.Shared.Features
         public int TimeInMinutes { get; set; }
         public string TimeFormatted => $"{TimeInMinutes / 60}h {TimeInMinutes % 60}m";
         public int Rating { get; set; }
-        public IEnumerable<Song> Songs { get; set; } = new List<Song>();
+        public List<Song> Songs { get; set; } = new List<Song>();
 
         public class Song
         {

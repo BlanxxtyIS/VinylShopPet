@@ -3,7 +3,7 @@ using VinylShop.Api.Persistence.Entities;
 
 namespace VinylShop.Api.Persistence
 {
-    public class VinylShopContext: DbContext
+    public class VinylShopContext : DbContext
     {
         public DbSet<Album> Albums => Set<Album>();
         public DbSet<Song> Songs => Set<Song>();

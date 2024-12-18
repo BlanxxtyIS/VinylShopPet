@@ -1,106 +1,132 @@
 ﻿@page "/add-album"
-@inject HttpClient Http
 
 <PageTitle>Add Album - Vinyl Shop</PageTitle>
 
-@using System.Text.RegularExpressions
-@using System.ComponentModel.DataAnnotations
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Add Album</li>
+    </ol>
+</nav>
 
-<MudGrid>
-    <MudItem xs="12" sm="7">
-        <MudPaper Class="pa-4">
-            <MudForm @bind-IsValid="@success" @bind-Errors="@errors" Model="_album">
-                <MudTextField @bind-Value="_album.Name"
-                    T="string" 
-                    Label="Title" Required="true" 
-                    RequiredError="Title name is required!"
-                    Validation="_album.Name"/>
-                <MudTextField @bind-Value="_album.Description"
-                    T="string" 
-                    Label="Description" 
-                    Required="true" 
-                    RequiredError="Description name is required!" /> 
-                <MudTextField @bind-Value="_album.Image"
-                    T="string" 
-                    Label="Image" 
-                    Required="true" 
-                    RequiredError="Image name is required!" />
-                <MudTextField @bind-Value="_album.AuthorName"
-                    T="string" 
-                    Label="Author Name" 
-                    Required="true" 
-                    RequiredError="Author name name is required!" />
-                <MudTextField @bind-Value="_album.TimeInMinutes"
-                    T="int"
-                    Label="Time In Minutes" 
-                    Required="true" 
-                    RequiredError="Time in minutes is required!" />
-                <MudTextField @bind-Value="_album.Rating"
-                    T="int" 
-                    Label="Rating" 
-                    Required="true" 
-                    RequiredError="Rating is required!" />
-                <MudTextField 
-                    T="string" 
-                    Label="Songs" 
-                    Required="true" 
-                    RequiredError="Songs is required!" />
-            </MudForm>
-        </MudPaper>
-        <MudPaper Class="pa-4 mt-4">
-            <MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="@(!success)" Class="ml-auto" OnClick="RegisterUser">Register</MudButton>
-            <p>@requestText</p>
-        </MudPaper>
-    </MudItem>
-    <MudItem xs="12" sm="5">
-        <MudPaper Class="pa-4 mud-height-full">
-            <MudText Typo="Typo.subtitle2">@($"Errors ({errors.Length})")</MudText>
-            @foreach (var error in errors)
-            {
-                <MudText Color="@Color.Error">@error</MudText>
-            }
-        </MudPaper>
-    </MudItem>
-</MudGrid>
+<h3 class="mt-5 mb-4">Add a album</h3>
 
+<EditForm Model="_album" OnValidSubmit="SubmitForm">
+    <FormSection Title="Basic Details"
+        HelpText="This information is used to identity the album and can be searched to help hikers find it.">
+
+        <FormFieldSet Width="col-6">
+            <label for="albumName" class="font-weight-bold
+                text-secondary">Name</label>
+            <InputText @bind-Value="_album.Name" class="form-control" id="albumName" />
+        </FormFieldSet>
+
+        <FormFieldSet>
+            <label for="albumDescription"
+                   class="font-weight-bold text-secondary">Description</label>
+            <InputTextArea @bind-Value="_album.Description" rows="6"
+                           class="form-control" id="albumDescription" />
+        </FormFieldSet>
+
+        <FormFieldSet Width="col-6">
+            <label for="albumAuthorName"
+                   class="font-weight-bold text-secondary">Author Name</label>
+            <InputTextArea @bind-Value="_album.AuthorName" class="form-control"
+                   id="albumAuthorName" />
+        </FormFieldSet>
+
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="albumAuthorName"
+                           class="font-weight-bold text-secondary">Rating</label>
+                    <InputText @bind-Value="_album.AuthorName" class="form-control" id="albumAuthorName" />
+                </div>
+            </div>
+        </div>
+    </FormSection>
+
+    <FormSection Title="Difficulty"
+        HelpText="">
+        <FormFieldSet Width="col-3">
+            <label for="albumRating"
+                class="font-weight-bold text-secondary">Rating (stars)</label>
+                <InputNumber @bind-Value="_album.Rating"
+                    class="form-control" id="albumRating"/>
+        </FormFieldSet>
+    </FormSection>
+
+    <div class="mt-4 mb-5">
+        <div class="row">
+            <div class="offset-4 col-8 text-right">
+                <button class="btn btn-outline-secondary"
+                        type="button"
+                        @onclick="@(() => _album = new AlbumDTO())">
+                    Reset
+                </button>
+                <button class="btn btn-primary"
+                        type="submit">
+                    Submit
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <FormSection Title="Route Instructions"
+        HelpText="Route instructions are a guide for the album. This helps hikers new to the album stay on track.">
+        @{
+            var i = 0; 
+        }
+        @foreach (var song in _album.Songs)
+        {
+            i++;
+            song.AlbumId = i;
+
+            <div class="row">
+                <div class="col-2">
+                    <div class="form-group">
+                        <label class="font-weight-bold text-secondary">
+                            AlbumId
+                        </label>
+                        <p>@song.AlbumId</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="songDescription" class="font-weight-bold text-secondary">Description</label>
+                        <InputText @bind-Value="song.Text" class="form-control" id="songDescription" />
+                    </div>
+                </div>
+                <div class="col-1 d-flex mt-3">
+                    <button @onclick="(() => _album.Songs.Remove(song))"
+                        class="btn btn-link" type="button">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16"
+                            class="bi bi-x-circle-fill text-danger"
+                            fill="currentColor"
+                            xmls="http://www.w3.org/2000/svg">
+                        </svg>
+                        </button>
+                </div>
+            </div>
+        }
+
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-outline-primary"
+                        type="button"
+                        @onclick="@(() => _album.Songs.Add(new AlbumDTO.Song()))">
+                    Add Song
+                </button>
+            </div>
+        </div>
+    </FormSection>
+</EditForm>
 
 @code {
-    private string requestText = "";
-    bool success;
-    string[] errors = { };
     private AlbumDTO _album = new AlbumDTO();
 
-    private async void RegisterUser()
+    private async Task SubmitForm()
     {
-        var response = await Http.PostAsJsonAsync("api/Album", _album);
-
-        if (response.IsSuccessStatusCode)
-        {
-            var createdAlbum = await response.Content.ReadFromJsonAsync<AlbumDTO>();
-            requestText = createdAlbum.Id.ToString();
-            success = (!success);
-            _album = new AlbumDTO();
-        }
-        else
-        {
-            requestText = "Error creating album";
-        }
-    }
-
-    private IEnumerable<string> PasswordStrength(string pw)
-    {
-        if (string.IsNullOrWhiteSpace(pw))
-        {
-            yield return "Password is required!";
-            yield break;
-        }
-        if (pw.Length < 8)
-            yield return "Password must be at least of length 8";
-        if (!Regex.IsMatch(pw, @"[A-Z]"))
-            yield return "Password must contain at least one capital letter";
-        if (!Regex.IsMatch(pw, @"[a-z]"))
-            yield return "Password must contain at least one lowercase letter";
-        if (!Regex.IsMatch(pw, @"[0-9]"))
-            yield return "Password must contain at least one digit";
+        int i = 1;
     }
 }
